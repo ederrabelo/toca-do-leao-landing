@@ -24,7 +24,7 @@ const isHomePage = Astro.url.pathname === '/'
 const routeByAnchor: Record<string, string> = {
   '#horarios': '/horarios',
   '#planos': '/planos',
-  '#contato': '/localizacao',
+  '#onde-estamos': '/localizacao',
 }
 const getNavHref = (href: string) =>
   routeByAnchor[href] ?? (href.startsWith('#') && (useHomeAnchors || !isHomePage) ? `/${href}` : href)

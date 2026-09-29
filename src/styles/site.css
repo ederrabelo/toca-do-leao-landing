@@ -1676,31 +1676,36 @@
   bottom: 16px;
 }
 
-.contact-section {
+.where-we-are-section {
   padding-bottom: 78px;
 }
 
-.contact-layout {
+.where-we-are-layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.78fr) minmax(420px, 1fr);
-  gap: 38px;
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 32px;
+  align-items: center;
 }
 
-.contact-copy {
+.where-we-are-location {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.where-we-are-copy {
   padding: 34px;
   border: 1px solid var(--section-line);
   border-radius: var(--radius-frame);
   background: var(--section-card);
 }
 
-.contact-actions {
+.where-we-are-actions {
   display: grid;
   gap: 12px;
-  margin-top: 32px;
 }
 
-.contact-socials {
+.where-we-are-socials {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1710,7 +1715,7 @@
   border-top: 1px solid var(--section-line);
 }
 
-.contact-socials strong {
+.where-we-are-socials strong {
   color: var(--section-text);
   font-size: 0.8rem;
   font-weight: var(--font-weight-medium);
@@ -1719,23 +1724,23 @@
   text-transform: uppercase;
 }
 
-.contact-social-links {
+.where-we-are-social-links {
   display: flex;
   gap: 10px;
 }
 
-.contact-social-link {
+.where-we-are-social-link {
   border-color: rgba(17, 17, 17, 0.24);
   color: var(--ink);
 }
 
-.contact-social-link:hover {
+.where-we-are-social-link:hover {
   border-color: rgba(17, 17, 17, 0.5);
   background: rgba(17, 17, 17, 0.06);
 }
 
-.contact-copy address {
-  margin-top: 18px;
+.where-we-are-location address {
+  margin: 0;
   color: var(--section-muted);
   font-size: 0.95rem;
   font-style: normal;
@@ -1744,7 +1749,7 @@
 }
 
 .map-frame {
-  min-height: 480px;
+  height: 400px;
   overflow: hidden;
   border: 1px solid var(--section-line);
   border-radius: var(--radius-frame);
@@ -1757,7 +1762,6 @@
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 480px;
 }
 
 .site-footer {
@@ -1966,7 +1970,7 @@
   .intro-layout,
   .faq-layout,
   .store-layout,
-  .contact-layout {
+  .where-we-are-layout {
     grid-template-columns: 1fr;
   }
 
@@ -2346,22 +2350,22 @@
     aspect-ratio: 4 / 3;
   }
 
-  .contact-copy {
+  .where-we-are-copy {
     padding: 24px;
   }
 
-  .contact-socials {
+  .where-we-are-socials {
     align-items: center;
     flex-direction: column;
     text-align: center;
   }
 
-  .contact-social-links {
+  .where-we-are-social-links {
     justify-content: center;
     width: 100%;
   }
 
-  .contact-social-link {
+  .where-we-are-social-link {
     flex: 0 0 auto;
   }
 
@@ -2373,9 +2377,12 @@
     max-height: none;
   }
 
-  .map-frame,
-  .map-frame iframe {
-    min-height: 360px;
+  .where-we-are-layout {
+    gap: 24px;
+  }
+
+  .map-frame {
+    height: 300px;
   }
 }
 

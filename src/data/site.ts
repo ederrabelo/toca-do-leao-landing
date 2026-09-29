@@ -46,7 +46,7 @@ export const whatsappUrls = {
   introduction: createWhatsappUrl(
     'Olá, vim pelo site e gostaria de saber mais sobre a aula introdutória individualizada para iniciantes.',
   ),
-  contact: createWhatsappUrl('Olá, vim pelo site e gostaria de mais informações.'),
+  whereWeAre: createWhatsappUrl('Olá, vim pelo site e gostaria de mais informações.'),
 }
 
 export const navLinks = [
@@ -56,7 +56,7 @@ export const navLinks = [
   { label: 'Planos', href: '#planos' },
   { label: 'Loja', href: '#loja' },
   { label: 'Dúvidas', href: '#duvidas' },
-  { label: 'Contato', href: '#contato' },
+  { label: 'Onde estamos', href: '#onde-estamos' },
 ]
 
 export const galleryImages = {
