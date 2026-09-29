@@ -21,14 +21,13 @@ interface Props {
 
 const { useHomeAnchors = false, variant = 'transparent' } = Astro.props
 const isHomePage = Astro.url.pathname === '/'
-const getNavHref = (href: string) =>
-  href.startsWith('#') && (useHomeAnchors || !isHomePage) ? `/${href}` : href
-const mobileRouteByAnchor: Record<string, string> = {
+const routeByAnchor: Record<string, string> = {
   '#horarios': '/horarios',
   '#planos': '/planos',
   '#contato': '/localizacao',
 }
-const getMobileNavHref = (href: string) => mobileRouteByAnchor[href] ?? getNavHref(href)
+const getNavHref = (href: string) =>
+  routeByAnchor[href] ?? (href.startsWith('#') && (useHomeAnchors || !isHomePage) ? `/${href}` : href)
 const getNavSource = (href: string) => href.replace(/^\/?#?/, '').replace(/[^a-z0-9]+/gi, '_') || 'inicio'
 ---
 
@@ -101,7 +100,7 @@ const getNavSource = (href: string) => href.replace(/^\/?#?/, '').replace(/[^a-z
     <nav class="mobile-menu-nav" aria-label="Menu principal mobile">
       {navLinks.map((link) => (
         <TrackedLink
-          href={getMobileNavHref(link.href)}
+          href={getNavHref(link.href)}
           event="navigation_click"
           source={`nav_mobile_${getNavSource(link.href)}`}
         >
