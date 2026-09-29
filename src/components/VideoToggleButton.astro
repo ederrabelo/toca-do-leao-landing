@@ -1,0 +1,23 @@
+---
+import PlayIcon from './icons/PlayIcon.astro'
+import PauseIcon from './icons/PauseIcon.astro'
+
+interface Props {
+  className: string
+  isPaused: boolean
+  hidden?: boolean
+}
+
+const { className, isPaused, hidden = false } = Astro.props
+---
+
+<button
+  class={`video-toggle ${className}`}
+  type="button"
+  aria-label={isPaused ? 'Reproduzir vídeo' : 'Pausar vídeo'}
+  hidden={hidden}
+>
+  {isPaused ? <PlayIcon /> : <PauseIcon />}
+  <template data-play-icon><PlayIcon /></template>
+  <template data-pause-icon><PauseIcon /></template>
+</button>

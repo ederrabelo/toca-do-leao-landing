@@ -1,0 +1,26 @@
+---
+import HeroMedia from '../HeroMedia.astro'
+import WhatsappLink from '../WhatsappLink.astro'
+import ChevronDownIcon from '../icons/ChevronDownIcon.astro'
+import { whatsappUrls } from '../../data/site'
+---
+
+<section id="inicio" class="hero-section" aria-label="Banner principal">
+  <HeroMedia />
+  <div class="hero-overlay" />
+  <div class="hero-content" data-reveal="hero">
+    <h1>Jiu-Jitsu como estilo de vida.</h1>
+    <p>Aulas para iniciantes, crianças e adultos em Cuiabá.</p>
+    <WhatsappLink
+      className="button button-primary"
+      href={whatsappUrls.schedule}
+      source="hero"
+   >
+      Agendar aula experimental grátis
+    </WhatsappLink>
+  </div>
+  <a class="hero-scroll-indicator" href="#quem-somos">
+    <span>Conheça a Toca</span>
+    <ChevronDownIcon />
+  </a>
+</section>

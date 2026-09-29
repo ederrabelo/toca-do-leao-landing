@@ -1,0 +1,104 @@
+/* Motion adapted from referencia-gestao; the original palette and layout stay in site.css. */
+@media (prefers-reduced-motion: no-preference) {
+  .motion-ready [data-reveal] {
+    transition:
+      opacity 800ms var(--ease-out) var(--reveal-delay, 0ms),
+      transform 900ms var(--ease-out) var(--reveal-delay, 0ms),
+      filter 700ms var(--ease-out) var(--reveal-delay, 0ms),
+      translate 300ms var(--ease-out),
+      box-shadow 300ms ease;
+  }
+
+  .motion-ready .reveal-pending {
+    transition: none;
+    opacity: 0;
+    transform: translate3d(0, 24px, 0) scale(0.985);
+    filter: blur(3px);
+  }
+
+  [data-motion] .hero-content {
+    animation: toca-hero-enter 650ms var(--ease-out) both;
+  }
+
+  [data-motion] .button,
+  [data-motion] .header-social-link,
+  [data-motion] .schedule-filter {
+    transition:
+      border-color 180ms ease,
+      background 180ms ease,
+      color 180ms ease,
+      translate 250ms var(--ease-out),
+      scale 180ms var(--ease-out),
+      box-shadow 300ms ease;
+  }
+
+  [data-motion] .button:active,
+  [data-motion] .schedule-filter:active {
+    scale: 0.985;
+  }
+
+  [data-motion] .button svg,
+  [data-motion] .intro-benefit-icon svg,
+  [data-motion] .store-category-icon svg {
+    transition: transform 300ms var(--ease-out);
+  }
+
+  [data-motion] .hero-scroll-indicator svg {
+    animation: toca-scroll-hint 2.8s ease-in-out 2;
+  }
+
+  .faq-is-animating {
+    overflow: hidden;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-motion] :is(.program-card, .pricing-card, .leadership-card):hover {
+    translate: 0 -5px;
+    box-shadow: var(--shadow-light);
+  }
+
+  [data-motion] :is(.button, .header-social-link):hover {
+    translate: 0 -2px;
+  }
+
+  [data-motion] .program-card:hover .program-media img {
+    transform: scale(1.035);
+  }
+
+  [data-motion] :is(.program-button-learn, .story-read-more):hover svg {
+    transform: translateX(4px);
+  }
+
+  [data-motion] .intro-benefits article:hover .intro-benefit-icon svg,
+  [data-motion] .store-category:hover .store-category-icon svg {
+    transform: scale(1.08) rotate(-3deg);
+  }
+}
+
+@keyframes toca-hero-enter {
+  from { opacity: 0; transform: translate3d(0, 12px, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes toca-scroll-hint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* Printing and motion preferences must never leave content concealed. */
+@media print, (prefers-reduced-motion: reduce) {
+  .motion-ready [data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
+
+@media print {
+  [data-motion] .hero-content,
+  [data-motion] .hero-scroll-indicator svg {
+    animation: none;
+  }
+}

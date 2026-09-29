@@ -1,0 +1,70 @@
+---
+import TrackedLink from '../TrackedLink.astro'
+import WhatsappLink from '../WhatsappLink.astro'
+import ArrowRightIcon from '../icons/ArrowRightIcon.astro'
+import { programs, programImageSizes } from '../../data/site'
+---
+
+<section id="programas" class="section section-light">
+  <div class="section-inner">
+    <div class="section-heading" data-reveal>
+      <h2 class="section-kicker">Nossos Programas</h2>
+      <p>
+        Escolha o programa ideal de acordo com a sua necessidade.
+      </p>
+    </div>
+
+    <div class="program-grid">
+      {programs.map((program) => (
+        <article class="program-card" data-reveal>
+          <div class="program-media">
+            <img
+              src={program.image}
+              srcset={
+                'mobileImage' in program
+                  ? `${program.mobileImage} 720w, ${program.image} ${program.width}w`
+                  : undefined
+              }
+              sizes={programImageSizes}
+              alt={program.title}
+              width={program.width}
+              height={program.height}
+              loading="lazy"
+              decoding="async"
+           />
+          </div>
+          <div class="program-content">
+            <h3>{program.title}</h3>
+            <p>{program.description}</p>
+            <ul>
+              {program.highlights.map((highlight) => (
+                <li>{highlight}</li>
+              ))}
+            </ul>
+            <div class="program-actions">
+              <WhatsappLink
+                className="button program-button-schedule"
+                href={program.scheduleHref}
+                source={`${program.source}_agendar`}
+                ariaLabel={`Agendar aula do programa ${program.title} pelo WhatsApp`}
+             >
+                {program.scheduleLabel}
+              </WhatsappLink>
+              <TrackedLink
+                className="button program-button-learn"
+                href={program.learnHref}
+                event="program_learn_more_click"
+                newTab
+                source={`${program.source}_saiba_mais`}
+                ariaLabel={`Saiba mais sobre o programa ${program.title} pelo WhatsApp`}
+             >
+                Saiba mais
+                <ArrowRightIcon />
+              </TrackedLink>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

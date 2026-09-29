@@ -1,0 +1,16 @@
+---
+import StarIcon from './icons/StarIcon.astro'
+interface Props { className?: string; rating: number }
+const { className, rating } = Astro.props
+const filledStars = Math.max(0, Math.min(5, Math.round(rating)))
+---
+
+<span
+  class={`rating-stars${className ? ` ${className}` : ''}`}
+  role="img"
+  aria-label={`${rating} de 5 estrelas`}
+>
+  {Array.from({ length: 5 }, (_, index) => (
+    <StarIcon isFilled={index < filledStars} />
+  ))}
+</span>

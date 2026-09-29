@@ -1,0 +1,14 @@
+---
+import WhatsappLink from "./WhatsappLink.astro"
+import WhatsAppIcon from "./icons/WhatsAppIcon.astro"
+import { whatsappNumber } from "../data/site"
+---
+
+<WhatsappLink
+  className="floating-whatsapp"
+  href={`https://wa.me/${whatsappNumber}`}
+  source="botao_flutuante"
+  ariaLabel="Conversar com a Toca do Leão pelo WhatsApp"
+>
+  <WhatsAppIcon />
+</WhatsappLink>

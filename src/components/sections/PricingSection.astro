@@ -1,0 +1,57 @@
+---
+import WhatsappLink from '../WhatsappLink.astro'
+import CheckIcon from '../icons/CheckIcon.astro'
+import TrophyIcon from '../icons/TrophyIcon.astro'
+import { pricingPlans } from '../../data/site'
+---
+
+<section id="planos" class="section section-light pricing-section">
+  <div class="section-inner">
+    <div class="section-heading" data-reveal>
+      <h2 class="section-kicker">Planos</h2>
+      <p>
+        Escolha o plano ideal para o seu objetivo.
+      </p>
+    </div>
+
+    <div class="pricing-grid">
+      {pricingPlans.map((plan) => (
+        <article data-reveal
+          class={`pricing-card${plan.featured ? ' is-featured' : ''}`}
+       >
+          {plan.featured && (
+            <span class="pricing-badge">
+              <TrophyIcon />
+              Mais escolhido
+            </span>
+          )}
+          <h3>{plan.name}</h3>
+          <p class="pricing-description">{plan.description}</p>
+          <div class="pricing-price">
+            <strong>{plan.price}</strong>
+            <span>{plan.period}</span>
+          </div>
+          <ul class="pricing-features">
+            {plan.features.map((feature) => (
+              <li>
+                <CheckIcon />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+          <WhatsappLink
+            className={`button pricing-button${plan.featured ? ' button-card' : ' button-secondary'}`}
+            href={plan.href}
+            source={`${plan.source}_whatsapp`}
+         >
+            Quero este plano
+          </WhatsappLink>
+        </article>
+      ))}
+    </div>
+
+    <div class="pricing-note">
+      <p>Planos e valores podem variar conforme campanhas, promoções ou condições vigentes.</p>
+    </div>
+  </div>
+</section>

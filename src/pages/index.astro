@@ -1,11 +1,36 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from '../layouts/Layout.astro'
+import SiteHeader from '../components/SiteHeader.astro'
+import SiteFooter from '../components/SiteFooter.astro'
+import HeroSection from '../components/sections/HeroSection.astro'
+import AboutSection from '../components/sections/AboutSection.astro'
+import ProgramsSection from '../components/sections/ProgramsSection.astro'
+import GallerySection from '../components/sections/GallerySection.astro'
+import IntroSection from '../components/sections/IntroSection.astro'
+import ScheduleSection from '../components/sections/ScheduleSection.astro'
+import PricingSection from '../components/sections/PricingSection.astro'
+import StoreSection from '../components/sections/StoreSection.astro'
+import FaqSection from '../components/sections/FaqSection.astro'
+import ReviewsSection from '../components/ReviewsSection.astro'
+import ContactSection from '../components/sections/ContactSection.astro'
 ---
 
 <Layout>
-	<Welcome />
+  <div class="site-shell" data-motion data-surfaces>
+    <SiteHeader />
+    <main>
+      <HeroSection />
+      <AboutSection />
+      <ProgramsSection />
+      <GallerySection />
+      <IntroSection />
+      <ScheduleSection />
+      <PricingSection />
+      <StoreSection />
+      <FaqSection />
+      <ReviewsSection />
+      <ContactSection />
+    </main>
+    <SiteFooter />
+  </div>
 </Layout>

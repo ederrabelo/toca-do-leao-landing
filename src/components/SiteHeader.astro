@@ -1,0 +1,206 @@
+---
+import {
+  instagramUrl,
+  youtubeUrl,
+  navLinks,
+  logoCompactImage,
+  logoSrcSet,
+  logoSizes,
+} from '../data/site'
+import TrackedLink from './TrackedLink.astro'
+import InstagramIcon from './icons/InstagramIcon.astro'
+import YouTubeIcon from './icons/YouTubeIcon.astro'
+import MenuIcon from './icons/MenuIcon.astro'
+import CloseIcon from './icons/CloseIcon.astro'
+import ArrowRightIcon from './icons/ArrowRightIcon.astro'
+
+interface Props {
+  useHomeAnchors?: boolean
+  variant?: 'transparent' | 'dark'
+}
+
+const { useHomeAnchors = false, variant = 'transparent' } = Astro.props
+const getNavHref = (href: string) => useHomeAnchors && href.startsWith('#') ? `/${href}` : href
+const getNavSource = (href: string) => href.replace(/^\/?#?/, '').replace(/[^a-z0-9]+/gi, '_') || 'inicio'
+---
+
+<header class:list={['site-header', { 'site-header-dark': variant === 'dark' }]}>
+  <div class="logo-mark">
+    <img
+      src={logoCompactImage}
+      srcset={logoSrcSet}
+      sizes={logoSizes}
+      alt="Toca do Leão"
+      width="320"
+      height="374"
+    />
+  </div>
+
+  <nav class="main-nav" aria-label="Menu principal">
+    {navLinks.map((link) => (
+      <TrackedLink
+        href={getNavHref(link.href)}
+        event="navigation_click"
+        source={`nav_desktop_${getNavSource(link.href)}`}
+      >
+        {link.label}
+      </TrackedLink>
+    ))}
+  </nav>
+
+  <div class="header-actions">
+    <TrackedLink
+      className="header-social-link"
+      href={instagramUrl}
+      event="instagram_click"
+      newTab
+      source="instagram_cabecalho"
+    >
+      <InstagramIcon />
+      <span class="sr-only">Instagram da Toca do Leão</span>
+    </TrackedLink>
+    <TrackedLink
+      className="header-social-link"
+      href={youtubeUrl}
+      event="youtube_click"
+      newTab
+      source="youtube_cabecalho"
+    >
+      <YouTubeIcon />
+      <span class="sr-only">YouTube da Toca do Leão</span>
+    </TrackedLink>
+    <button
+      class="mobile-menu-toggle"
+      type="button"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+      aria-label="Abrir menu"
+    >
+      <MenuIcon />
+      <template data-menu-open-icon><MenuIcon /></template>
+      <template data-menu-close-icon><CloseIcon /></template>
+    </button>
+  </div>
+
+  <div
+    class="mobile-menu"
+    id="mobile-menu"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Menu de navegação"
+    hidden
+  >
+    <nav class="mobile-menu-nav" aria-label="Menu principal mobile">
+      {navLinks.map((link) => (
+        <TrackedLink
+          href={getNavHref(link.href)}
+          event="navigation_click"
+          source={`nav_mobile_${getNavSource(link.href)}`}
+        >
+          <span>{link.label}</span>
+          <ArrowRightIcon />
+        </TrackedLink>
+      ))}
+    </nav>
+    <div class="mobile-menu-socials" aria-label="Redes sociais">
+      <TrackedLink
+        className="mobile-menu-social-link"
+        href={instagramUrl}
+        event="instagram_click"
+        newTab
+        source="instagram_menu_mobile"
+      >
+        <InstagramIcon />
+        <span class="sr-only">Instagram da Toca do Leão</span>
+      </TrackedLink>
+      <TrackedLink
+        className="mobile-menu-social-link"
+        href={youtubeUrl}
+        event="youtube_click"
+        newTab
+        source="youtube_menu_mobile"
+      >
+        <YouTubeIcon />
+        <span class="sr-only">YouTube da Toca do Leão</span>
+      </TrackedLink>
+    </div>
+  </div>
+</header>
+
+<script>
+  import { trackEvent } from '../scripts/tracking'
+
+  document.querySelectorAll<HTMLElement>('.site-header').forEach((header) => {
+    const menu = header.querySelector<HTMLDivElement>('.mobile-menu')
+    const toggle = header.querySelector<HTMLButtonElement>('.mobile-menu-toggle')
+    if (!menu || !toggle) return
+
+    let isOpen = false
+    let previousOverflow = ''
+
+    const handleModalKeyboard = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false)
+        toggle.focus()
+        return
+      }
+      if (event.key !== 'Tab') return
+
+      const focusableElements: HTMLElement[] = [toggle, ...menu.querySelectorAll<HTMLElement>('a[href]')]
+      const firstElement = focusableElements[0]
+      const lastElement = focusableElements.at(-1)
+      if (!firstElement || !lastElement) return
+
+      if (!focusableElements.includes(document.activeElement as HTMLElement)) {
+        event.preventDefault()
+        const nextElement = event.shiftKey ? lastElement : firstElement
+        nextElement.focus()
+      } else if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault()
+        lastElement.focus()
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault()
+        firstElement.focus()
+      }
+    }
+
+    const setMenuOpen = (open: boolean) => {
+      if (open === isOpen) return
+      isOpen = open
+      header.classList.toggle('is-menu-open', open)
+      menu.hidden = !open
+      toggle.setAttribute('aria-expanded', String(open))
+      toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu')
+      const icon = toggle.querySelector<HTMLTemplateElement>(
+        open ? '[data-menu-close-icon]' : '[data-menu-open-icon]',
+      )?.content.firstElementChild
+      if (icon) {
+        toggle.querySelector(':scope > svg')?.remove()
+        toggle.prepend(icon.cloneNode(true))
+      }
+
+      if (open) {
+        previousOverflow = document.body.style.overflow
+        document.body.style.overflow = 'hidden'
+        window.addEventListener('keydown', handleModalKeyboard)
+      } else {
+        document.body.style.overflow = previousOverflow
+        window.removeEventListener('keydown', handleModalKeyboard)
+      }
+    }
+
+    toggle.addEventListener('click', () => {
+      trackEvent('menu_toggle', isOpen ? 'fechar_menu' : 'abrir_menu')
+      setMenuOpen(!isOpen)
+    })
+
+    menu.querySelectorAll<HTMLAnchorElement>('.mobile-menu-nav a[href]').forEach((link) => {
+      link.addEventListener('click', () => setMenuOpen(false))
+    })
+
+    const mobileQuery = window.matchMedia('(max-width: 980px)')
+    mobileQuery.addEventListener('change', () => {
+      if (!mobileQuery.matches) setMenuOpen(false)
+    })
+  })
+</script>

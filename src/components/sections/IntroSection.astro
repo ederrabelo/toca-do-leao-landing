@@ -1,0 +1,58 @@
+---
+import WhatsappLink from '../WhatsappLink.astro'
+import PersonalizedIcon from '../icons/PersonalizedIcon.astro'
+import GuidanceIcon from '../icons/GuidanceIcon.astro'
+import GroupIcon from '../icons/GroupIcon.astro'
+import { whatsappUrls } from '../../data/site'
+---
+
+<section id="primeiro-passo" class="section section-light intro-section">
+  <div class="section-inner intro-layout">
+    <div class="intro-copy" data-reveal>
+      <h2 class="section-kicker">Comece no seu ritmo</h2>
+      <div class="text-stack text-stack-large">
+        <p>
+          Nunca treinou? Comece com uma aula introdutória individualizada, pensada para
+          apresentar o tatame com segurança e atenção exclusiva.
+        </p>
+      </div>
+      <WhatsappLink
+        className="button button-primary"
+        href={whatsappUrls.introduction}
+        source="aula_introdutoria"
+     >
+        Agendar aula introdutória
+      </WhatsappLink>
+    </div>
+
+    <section class="intro-benefits" aria-label="Benefícios da aula introdutória">
+      <article data-reveal>
+        <div class="intro-benefit-icon">
+          <PersonalizedIcon />
+        </div>
+        <div>
+          <h3>Aula introdutória individualizada</h3>
+          <p>Um primeiro contato com atenção exclusiva para começar com calma.</p>
+        </div>
+      </article>
+      <article data-reveal>
+        <div class="intro-benefit-icon">
+          <GuidanceIcon />
+        </div>
+        <div>
+          <h3>Orientação passo a passo</h3>
+          <p>Conheça os fundamentos e a dinâmica do tatame com acompanhamento próximo.</p>
+        </div>
+      </article>
+      <article data-reveal>
+        <div class="intro-benefit-icon">
+          <GroupIcon />
+        </div>
+        <div>
+          <h3>A turma certa para você</h3>
+          <p>Depois da introdução, indicamos o grupo mais adequado ao seu momento.</p>
+        </div>
+      </article>
+    </section>
+  </div>
+</section>

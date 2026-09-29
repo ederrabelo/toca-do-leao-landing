@@ -1,0 +1,106 @@
+---
+import Layout from '../layouts/Layout.astro'
+import SiteHeader from '../components/SiteHeader.astro'
+import SiteFooter from '../components/SiteFooter.astro'
+import TrackedLink from '../components/TrackedLink.astro'
+import PlaceholderPhoto from '../components/PlaceholderPhoto.astro'
+import ArrowLeftIcon from '../components/icons/ArrowLeftIcon.astro'
+---
+
+<Layout page="history">
+<div class="site-shell history-shell" data-motion>
+      <SiteHeader variant="dark" useHomeAnchors />
+
+      <main class="history-main">
+        <article class="history-article">
+          <section class="history-article-section history-article-section-first section section-white">
+            <div class="section-inner history-report-row">
+              <div class="history-report-copy" data-reveal>
+                <h2>O começo</h2>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                  finibus, augue vitae vulputate tristique, sapien magna luctus
+                  urna, et gravida lectus sem non sem. Aliquam erat volutpat.
+                </p>
+                <p>
+                  Nulla facilisi. Etiam in lectus sollicitudin, faucibus nisl
+                  eget, tincidunt lacus. Praesent vel elit vel turpis dictum
+                  hendrerit. Morbi ultricies turpis eu purus consectetur.
+                </p>
+                <p>
+                  Vestibulum ante ipsum primis in faucibus orci luctus et
+                  ultrices posuere cubilia curae. Curabitur vitae magna vel
+                  lorem dignissim ullamcorper.
+                </p>
+              </div>
+              <PlaceholderPhoto label="Foto 1" />
+            </div>
+          </section>
+
+          <section class="history-article-section section section-white">
+            <div class="section-inner history-report-row history-report-row-reverse">
+              <div class="history-report-copy" data-reveal>
+                <h2>A construção da identidade</h2>
+                <p>
+                  Phasellus tincidunt, nibh at bibendum facilisis, urna lectus
+                  pellentesque mauris, non efficitur nibh ipsum ac risus.
+                  Integer in orci gravida, tempor odio nec, luctus arcu.
+                </p>
+                <p>
+                  Cras suscipit orci ac velit rhoncus, vel laoreet massa
+                  aliquet. Proin dictum lacus id sem viverra, at porta sapien
+                  posuere. Duis mattis interdum nulla.
+                </p>
+                <p>
+                  Curabitur et urna id magna hendrerit consequat sit amet nec
+                  lectus. Suspendisse potenti. Donec non augue sit amet nibh
+                  gravida convallis.
+                </p>
+              </div>
+              <PlaceholderPhoto label="Foto 2" />
+            </div>
+          </section>
+
+          <section class="history-article-section section section-white">
+            <div class="section-inner history-report-row">
+              <div class="history-report-copy" data-reveal>
+                <h2>O presente e os próximos passos</h2>
+                <p>
+                  Maecenas viverra erat id purus dictum, quis placerat mi
+                  pulvinar. Vestibulum ac ipsum non est luctus efficitur sit
+                  amet sed nibh.
+                </p>
+                <p>
+                  Nunc varius, nisl sed dignissim faucibus, magna arcu porta
+                  tellus, vitae tempor ligula sem ut eros. Sed feugiat mi at
+                  libero interdum, a luctus lacus pulvinar.
+                </p>
+                <p>
+                  Aenean aliquam felis nec neque imperdiet, sit amet porta nibh
+                  finibus. Donec facilisis ligula et mauris elementum, vitae
+                  ultricies dui vulputate.
+                </p>
+              </div>
+              <PlaceholderPhoto label="Foto 3" />
+            </div>
+          </section>
+
+          <footer class="history-report-footer section section-white">
+            <div class="section-inner history-report-footer-inner" data-reveal>
+              <TrackedLink
+                className="button button-outline-dark history-home-link"
+                href="/"
+                event="history_home_click"
+                source="historia_final"
+              >
+                <ArrowLeftIcon />
+                Voltar para página inicial
+              </TrackedLink>
+            </div>
+          </footer>
+        </article>
+      </main>
+
+      <SiteFooter />
+    </div>
+</Layout>

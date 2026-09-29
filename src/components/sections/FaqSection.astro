@@ -1,0 +1,29 @@
+---
+import { faqColumns } from '../../data/site'
+---
+
+<section id="duvidas" class="section section-white faq-section">
+  <div class="section-inner faq-layout">
+    <div class="faq-heading" data-reveal>
+      <div>
+        <h2 class="section-kicker">Dúvidas frequentes</h2>
+      </div>
+      <p class="faq-intro">
+        Reunimos aqui as principais informações para ajudar você a se preparar e aproveitar melhor sua experiência na academia.
+      </p>
+    </div>
+
+    <div class="faq-list">
+      {faqColumns.map((column) => (
+        <div class="faq-column">
+          {column.map((faq) => (
+            <details data-reveal data-faq-question={faq.question}>
+              <summary>{faq.question}</summary>
+              <p>{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

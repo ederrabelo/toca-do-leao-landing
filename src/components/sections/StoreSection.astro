@@ -1,0 +1,46 @@
+---
+import LazyStoreVideo from '../LazyStoreVideo.astro'
+import { storeCategories, storePhoto } from '../../data/site'
+import BeltIcon from '../icons/BeltIcon.astro'
+import ShirtIcon from '../icons/ShirtIcon.astro'
+import CapIcon from '../icons/CapIcon.astro'
+const categoryIcons = { BeltIcon, ShirtIcon, CapIcon }
+---
+
+<section id="loja" class="section section-white store-section">
+  <div class="section-inner store-layout">
+    <div class="store-copy">
+      <h2 class="section-kicker" data-reveal>Toca Store</h2>
+      <p class="store-intro" data-reveal>
+        Produtos oficiais para treinos, graduações e uso no dia a dia — tudo disponível na própria academia.
+      </p>
+
+      <div class="store-product-photo" data-reveal>
+        <img
+          src={storePhoto}
+          alt="Boné da Toca Jiu-Jitsu"
+          width="1080"
+          height="1919"
+          loading="lazy"
+          decoding="async"
+       />
+      </div>
+
+      <div class="store-categories">
+        {storeCategories.map((category) => {
+          const CategoryIcon = categoryIcons[category.icon]
+          return (
+          <article class="store-category" data-reveal>
+            <div class="store-category-icon"><CategoryIcon /></div>
+            <div>
+              <h3>{category.title}</h3>
+              <small>{category.text}</small>
+            </div>
+          </article>
+        )})}
+      </div>
+    </div>
+
+    <LazyStoreVideo />
+  </div>
+</section>

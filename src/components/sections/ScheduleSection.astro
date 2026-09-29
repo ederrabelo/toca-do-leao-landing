@@ -1,0 +1,66 @@
+---
+import { scheduleDays, scheduleFilters } from '../../data/site'
+---
+
+<section id="horarios" class="section section-white schedule-section">
+  <div class="section-inner">
+    <div class="section-heading" data-reveal>
+      <h2 class="section-kicker">Horários</h2>
+      <p>
+        Confira nossa grade de treinos e encontre o melhor horário para você.
+      </p>
+    </div>
+
+    <div class="schedule-filters" aria-label="Filtrar horários">
+      {scheduleFilters.map((filter) => (
+        <button
+          class={`schedule-filter${filter === 'Todos' ? ' is-active' : ''}`}
+          type="button"
+          data-schedule-filter={filter}
+          aria-pressed={filter === 'Todos'}
+       >
+          {filter}
+        </button>
+      ))}
+    </div>
+
+    <div class="schedule-grid">
+      {scheduleDays.map((day) => (
+          <article class="schedule-day-card" data-reveal>
+            <header class="schedule-day-header">
+              <h3>{day.day}</h3>
+            </header>
+            <div class="schedule-slots">
+              {day.slots.map((slot) => (
+                <div data-schedule-title={slot.title} data-schedule-tags={JSON.stringify(slot.tags.map((tag) => tag.label))} class="schedule-slot">
+                  <time>{slot.time}</time>
+                  <div>
+                    <div class="schedule-slot-title">
+                      <strong>{slot.title}</strong>
+                      <div class="schedule-tags">
+                        {slot.tags.map((tag) => (
+                          <span
+                            class={`schedule-tag schedule-tag-${tag.tone}`}
+                         >
+                            {tag.label}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </article>
+        ))}
+    </div>
+
+    <div class="schedule-note">
+      <p>Horários no fuso de Cuiabá. A grade pode ser ajustada em feriados, eventos especiais ou necessidades internas da academia.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../../scripts/schedule'
+</script>

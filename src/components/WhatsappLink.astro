@@ -1,0 +1,14 @@
+---
+import TrackedLink from './TrackedLink.astro'
+
+interface Props {
+  ariaLabel?: string
+  className: string
+  href: string
+  source: string
+}
+---
+
+<TrackedLink {...Astro.props} event="whatsapp_click" newTab>
+  <slot />
+</TrackedLink>

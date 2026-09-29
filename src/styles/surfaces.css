@@ -1,0 +1,72 @@
+/* One quiet canvas connects the sections instead of repeating a decorative pattern. */
+.site-shell[data-surfaces] {
+  background: var(--paper);
+}
+
+[data-surfaces] > main {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(
+      ellipse 90% 900px at 90% 16%,
+      var(--paper-panel),
+      transparent 75%
+    ),
+    radial-gradient(
+      ellipse 85% 1200px at 0% 38%,
+      var(--paper-soft),
+      transparent 78%
+    ),
+    radial-gradient(
+      ellipse 90% 1200px at 100% 66%,
+      var(--paper-soft),
+      transparent 78%
+    ),
+    radial-gradient(
+      ellipse 85% 900px at 12% 88%,
+      var(--paper-panel),
+      transparent 75%
+    );
+}
+
+/* Sharing the canvas avoids visible edges between the sections and the photo mosaic. */
+[data-surfaces] > main > :is(.section-white, .section-light, .photo-gallery-wrap) {
+  background: transparent;
+}
+
+/* Let the shared canvas flow between the FAQ cards without changing their spacing. */
+[data-surfaces] .faq-list {
+  background: transparent;
+  border-color: transparent;
+}
+
+/* White cards and soft shadows add depth to the two formerly dark sections. */
+[data-surfaces] > main > :is(.intro-section, .store-section) {
+  --section-card: var(--paper-panel);
+}
+
+[data-surfaces] .intro-benefits article,
+[data-surfaces] .store-category {
+  box-shadow: 0 8px 24px -12px var(--line-light);
+}
+
+[data-surfaces] .intro-benefit-icon,
+[data-surfaces] .store-category-icon {
+  background: var(--paper-soft);
+  color: var(--ink);
+}
+
+/* Preserve the introductory CTA's size while giving it contrast on the light canvas. */
+[data-surfaces] .intro-section .button-primary {
+  --button-bg: var(--bg);
+  --button-text: var(--text);
+  --button-border: var(--bg);
+  --button-hover-border: var(--bg);
+  --button-hover-text: var(--bg);
+}
+
+[data-surfaces] > .site-footer {
+  background-color: var(--bg);
+  background-image: radial-gradient(ellipse at 50% 0%, var(--surface), var(--bg) 72%);
+  box-shadow: inset 0 1px 0 var(--line), inset 0 -1px 0 var(--line);
+}
+

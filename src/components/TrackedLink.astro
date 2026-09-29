@@ -1,0 +1,24 @@
+---
+interface Props {
+  ariaLabel?: string
+  className?: string
+  event: string
+  href: string
+  newTab?: boolean
+  source: string
+}
+
+const { ariaLabel, className, event, href, newTab = false, source } = Astro.props
+---
+
+<a
+  class={className}
+  href={href}
+  target={newTab ? '_blank' : undefined}
+  rel={newTab ? 'noreferrer' : undefined}
+  aria-label={ariaLabel}
+  data-cta-source={source}
+  data-track-event={event}
+>
+  <slot />
+</a>

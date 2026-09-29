@@ -1,0 +1,25 @@
+---
+import { logoSrcSet, logoCompactImage } from '../data/site'
+const currentYear = new Date().getFullYear()
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <img
+      class="footer-logo"
+      src={logoCompactImage}
+      srcset={logoSrcSet}
+      sizes="148px"
+      alt="Toca do Leão Lifestyle Jiu-Jitsu"
+      width="320"
+      height="374"
+      loading="lazy"
+      decoding="async"
+   />
+    <div class="footer-copy">
+      <p>TOCA DO LEAO LTDA - CNPJ 29.610.992/0001-50</p>
+      <p>© {currentYear}. Todos os direitos reservados.</p>
+      <p>Desenvolvido por <b>1908 Soluções</b></p>
+    </div>
+  </div>
+</footer>

@@ -1,5 +1,12 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-// https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  site: 'https://tocadoleao-landingpage.pages.dev',
+  trailingSlash: 'always',
+  build: {
+    // Preserve the original deployment paths and inline stylesheet delivery.
+    assets: 'assets',
+    inlineStylesheets: 'always',
+  },
+});

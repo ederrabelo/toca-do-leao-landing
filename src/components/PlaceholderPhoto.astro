@@ -1,0 +1,13 @@
+---
+import PhotoIcon from './icons/PhotoIcon.astro'
+interface Props { label: string }
+const { label } = Astro.props
+---
+
+<figure class="history-photo-placeholder" data-reveal>
+  <div class="history-photo-frame" aria-label={label} role="img">
+    <PhotoIcon />
+    <span>{label}</span>
+  </div>
+  <figcaption>{label}</figcaption>
+</figure>

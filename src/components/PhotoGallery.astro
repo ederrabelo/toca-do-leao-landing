@@ -1,0 +1,20 @@
+---
+import { galleryImages } from '../data/site'
+
+interface Props { images: Array<(typeof galleryImages)[keyof typeof galleryImages]> }
+const { images } = Astro.props
+---
+
+<div class="photo-gallery">
+  {images.map(({ alt, height, image, width }) => (
+    <img data-reveal
+
+      src={image}
+      alt={alt}
+      width={width}
+      height={height}
+      loading="lazy"
+      decoding="async"
+   />
+  ))}
+</div>

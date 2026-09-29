@@ -1,0 +1,107 @@
+---
+import {
+  heroDesktopPoster,
+  heroMobilePoster,
+  heroDesktopVideo,
+  heroMobileVideo,
+} from '../data/site'
+import VideoToggleButton from './VideoToggleButton.astro'
+---
+
+<picture class="hero-poster" aria-hidden="true">
+  <source srcset={heroDesktopPoster} media="(min-width: 768px)" />
+  <img src={heroMobilePoster} alt="" width="607" height="1079" fetchpriority="high" />
+</picture>
+<video
+  class="hero-media"
+  data-desktop-source={heroDesktopVideo}
+  data-mobile-source={heroMobileVideo}
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="none"
+  aria-hidden="true"
+  hidden
+>
+  <source type="video/webm" />
+</video>
+<VideoToggleButton className="hero-video-toggle" isPaused={false} hidden />
+
+<script>
+  import { updateVideoToggle } from '../scripts/video-controls'
+
+  document.querySelectorAll<HTMLVideoElement>('.hero-media').forEach((video) => {
+    const button = video.nextElementSibling
+    const source = video.querySelector('source')
+    if (!(button instanceof HTMLButtonElement) || !source) return
+
+    const desktopQuery = window.matchMedia('(min-width: 768px)')
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let shouldLoadMobileVideo = false
+    let timeoutId: number | undefined
+
+    video.defaultMuted = true
+    video.muted = true
+
+    video.addEventListener('loadstart', () => {
+      video.classList.remove('is-ready')
+      updateVideoToggle(button, false)
+    })
+    video.addEventListener('loadeddata', () => {
+      video.classList.add('is-ready')
+      updateVideoToggle(button, video.paused)
+    })
+    video.addEventListener('pause', () => updateVideoToggle(button, true))
+    video.addEventListener('play', () => updateVideoToggle(button, false))
+    button.addEventListener('click', () => {
+      if (video.paused) void video.play().catch(() => updateVideoToggle(button, true))
+      else video.pause()
+    })
+
+    const updateVideo = () => {
+      const shouldUseVideo = !motionQuery.matches && (desktopQuery.matches || shouldLoadMobileVideo)
+      video.hidden = !shouldUseVideo
+      button.hidden = !shouldUseVideo
+
+      if (!shouldUseVideo) {
+        video.pause()
+        video.classList.remove('is-ready')
+        if (source.hasAttribute('src')) {
+          source.removeAttribute('src')
+          video.load()
+        }
+        return
+      }
+
+      const videoSource = desktopQuery.matches ? video.dataset.desktopSource : video.dataset.mobileSource
+      if (videoSource && source.getAttribute('src') !== videoSource) {
+        video.classList.remove('is-ready')
+        source.src = videoSource
+        video.load()
+        void video.play().catch(() => updateVideoToggle(button, true))
+      }
+    }
+
+    const scheduleVideoLoad = () => {
+      timeoutId = window.setTimeout(() => {
+        shouldLoadMobileVideo = true
+        updateVideo()
+      }, 2200)
+    }
+
+    const updatePreferences = () => {
+      window.removeEventListener('load', scheduleVideoLoad)
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId)
+      if (!desktopQuery.matches && !motionQuery.matches && !shouldLoadMobileVideo) {
+        if (document.readyState === 'complete') scheduleVideoLoad()
+        else window.addEventListener('load', scheduleVideoLoad, { once: true })
+      }
+      updateVideo()
+    }
+
+    desktopQuery.addEventListener('change', updatePreferences)
+    motionQuery.addEventListener('change', updatePreferences)
+    updatePreferences()
+  })
+</script>

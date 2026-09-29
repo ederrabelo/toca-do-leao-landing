@@ -1,0 +1,88 @@
+---
+import { storeVideo, storeVideoPoster } from '../data/site'
+import VideoToggleButton from './VideoToggleButton.astro'
+---
+
+<div class="store-video-column">
+  <div class="store-video-wrap" data-reveal>
+    <video
+      data-video-source={storeVideo}
+      data-video-poster={storeVideoPoster}
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="none"
+      aria-hidden="true"
+    />
+    <VideoToggleButton className="store-video-toggle" isPaused={true} hidden />
+  </div>
+</div>
+
+<script>
+  import { updateVideoToggle } from '../scripts/video-controls'
+
+  document.querySelectorAll<HTMLDivElement>('.store-video-wrap').forEach((wrap) => {
+    const video = wrap.querySelector('video')
+    const button = wrap.querySelector<HTMLButtonElement>('.store-video-toggle')
+    if (!video || !button) return
+
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let shouldLoad = false
+
+    video.defaultMuted = true
+    video.muted = true
+    video.addEventListener('loadeddata', () => updateVideoToggle(button, video.paused))
+    video.addEventListener('pause', () => updateVideoToggle(button, true))
+    video.addEventListener('play', () => updateVideoToggle(button, false))
+
+    const updateVideo = () => {
+      button.hidden = motionQuery.matches
+      video.autoplay = !motionQuery.matches
+      if (shouldLoad && video.dataset.videoPoster) video.poster = video.dataset.videoPoster
+
+      if (motionQuery.matches) {
+        video.pause()
+        if (video.hasAttribute('src')) {
+          video.removeAttribute('src')
+          video.load()
+        }
+        return
+      }
+
+      if (!shouldLoad) return
+      const videoSource = video.dataset.videoSource
+      if (videoSource && video.getAttribute('src') !== videoSource) video.src = videoSource
+      video.defaultMuted = true
+      video.muted = true
+      video.loop = true
+      void video.play().catch(() => updateVideoToggle(button, true))
+    }
+
+    const loadVideo = () => {
+      shouldLoad = true
+      updateVideo()
+    }
+
+    button.addEventListener('click', () => {
+      if (!shouldLoad) loadVideo()
+      else if (video.paused) void video.play().catch(() => updateVideoToggle(button, true))
+      else video.pause()
+    })
+
+    motionQuery.addEventListener('change', updateVideo)
+    updateVideo()
+
+    if (typeof IntersectionObserver === 'undefined') {
+      window.setTimeout(loadVideo, 0)
+    } else {
+      const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          loadVideo()
+          observer.disconnect()
+        }
+      }, { rootMargin: '240px' })
+      observer.observe(wrap)
+    }
+  })
+</script>
