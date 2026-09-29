@@ -1744,6 +1744,7 @@
 }
 
 .map-frame {
+  scroll-margin-top: 96px;
   min-height: 480px;
   overflow: hidden;
   border: 1px solid var(--section-line);
