@@ -36,7 +36,7 @@ document.querySelectorAll<HTMLDetailsElement>('details[data-faq-question]').forE
 // Open shared section URLs at their section while keeping the short URL in the address bar.
 const sectionTarget = document.body.dataset.sectionTarget
 if (window.location.hash || sectionTarget) {
-  window.requestAnimationFrame(() => {
+  document.fonts.ready.then(() => {
     try {
       const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)) || sectionTarget || '')
       if (!target) return
