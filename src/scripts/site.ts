@@ -33,11 +33,19 @@ document.querySelectorAll<HTMLDetailsElement>('details[data-faq-question]').forE
   })
 })
 
-// Preserve navigation from the history page to a home section.
-if (window.location.hash) {
+// Open shared section URLs at their section while keeping the short URL in the address bar.
+const sectionTarget = document.body.dataset.sectionTarget
+if (window.location.hash || sectionTarget) {
   window.requestAnimationFrame(() => {
     try {
-      document.getElementById(decodeURIComponent(window.location.hash.slice(1)))?.scrollIntoView()
+      const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)) || sectionTarget || '')
+      if (!target) return
+      const previousScrollBehavior = document.documentElement.style.scrollBehavior
+      document.documentElement.style.scrollBehavior = 'auto'
+      target.scrollIntoView()
+      window.requestAnimationFrame(() => {
+        document.documentElement.style.scrollBehavior = previousScrollBehavior
+      })
     } catch {
       // Invalid fragments must not interrupt other page interactions.
     }

@@ -4,28 +4,7 @@
 }
 
 [data-surfaces] > main {
-  background-color: var(--paper);
-  background-image:
-    radial-gradient(
-      ellipse 90% 900px at 90% 16%,
-      var(--paper-panel),
-      transparent 75%
-    ),
-    radial-gradient(
-      ellipse 85% 1200px at 0% 38%,
-      var(--paper-soft),
-      transparent 78%
-    ),
-    radial-gradient(
-      ellipse 90% 1200px at 100% 66%,
-      var(--paper-soft),
-      transparent 78%
-    ),
-    radial-gradient(
-      ellipse 85% 900px at 12% 88%,
-      var(--paper-panel),
-      transparent 75%
-    );
+  background: #f1f0eb;
 }
 
 /* Sharing the canvas avoids visible edges between the sections and the photo mosaic. */

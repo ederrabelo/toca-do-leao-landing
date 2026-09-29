@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro'
+import HomePage from '../components/HomePage.astro'
+import { sectionRoutes, type SectionRoute } from '../data/sectionRoutes'
+
+export function getStaticPaths() {
+  return Object.entries(sectionRoutes).map(([slug, section]) => ({
+    params: { secao: slug },
+    props: { section: { slug, ...section } },
+  }))
+}
+
+const { section } = Astro.props as { section: SectionRoute }
+---
+
+<Layout section={section}><HomePage /></Layout>

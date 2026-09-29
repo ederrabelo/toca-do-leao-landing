@@ -8,18 +8,19 @@ import '../styles/global.css'
 import '../styles/site.css'
 import '../styles/surfaces.css'
 import '../styles/motion.css'
+import type { SectionRoute } from '../data/sectionRoutes'
 
-interface Props { page?: 'home' | 'history' }
-const { page = 'home' } = Astro.props
+interface Props { page?: 'home' | 'history'; section?: SectionRoute }
+const { page = 'home', section } = Astro.props
 ---
 
 <!doctype html>
 <html lang="pt-BR">
   <head>
     <link rel="preload" href={manropeLatin} as="font" type="font/woff2" crossorigin="anonymous" />
-    {page === 'history' ? <HistoryHead /> : <HomeHead />}
+    {page === 'history' ? <HistoryHead /> : <HomeHead section={section} />}
   </head>
-  <body>
+  <body data-section-target={section?.target}>
     <div id="root"><slot /></div>
     <FloatingWhatsapp />
     <script>

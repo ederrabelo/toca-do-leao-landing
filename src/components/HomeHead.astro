@@ -1,28 +1,41 @@
 ---
 import { heroMobilePoster, heroDesktopPoster } from '../data/site'
+import type { SectionRoute } from '../data/sectionRoutes'
+
+interface Props { section?: SectionRoute }
+const { section } = Astro.props
+const title = section ? `${section.title} | Toca do Leão` : 'Toca do Leão | Jiu-Jitsu em Cuiabá'
+const description = section?.slug === 'horarios'
+  ? 'Confira os horários das aulas de Jiu-Jitsu da Toca do Leão em Cuiabá.'
+  : section?.slug === 'planos'
+    ? 'Conheça os planos de Jiu-Jitsu da Toca do Leão em Cuiabá.'
+    : section?.slug === 'localizacao'
+    ? 'Veja o endereço e como chegar à Toca do Leão em Cuiabá.'
+    : 'Jiu-Jitsu em Cuiabá para crianças, adultos e mulheres. Conheça a Toca do Leão, faça uma aula experimental grátis e comece com orientação individualizada.'
+const url = `https://tocadoleao-landingpage.pages.dev/${section?.slug ?? ''}`
 ---
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Toca do Leão | Jiu-Jitsu em Cuiabá</title>
+    <title>{title}</title>
     <meta
       name="description"
-      content="Jiu-Jitsu em Cuiabá para crianças, adultos e mulheres. Conheça a Toca do Leão, faça uma aula experimental grátis e comece com orientação individualizada."
+      content={description}
     />
     <meta name="robots" content="noindex, follow" />
     <meta name="googlebot" content="noindex, follow" />
     <meta name="theme-color" content="#212020" />
     <meta name="application-name" content="Toca do Leão" />
     <meta name="apple-mobile-web-app-title" content="Toca do Leão" />
-    <link rel="canonical" href="https://tocadoleao-landingpage.pages.dev/" />
+    <link rel="canonical" href={url} />
     <link
       rel="alternate"
-      href="https://tocadoleao-landingpage.pages.dev/"
+      href={url}
       hreflang="pt-BR"
     />
     <link
       rel="alternate"
-      href="https://tocadoleao-landingpage.pages.dev/"
+      href={url}
       hreflang="x-default"
     />
     <link
@@ -55,13 +68,13 @@ import { heroMobilePoster, heroDesktopPoster } from '../data/site'
       href="/favicon/apple-touch-icon.png"
     />
     <link rel="manifest" href="/favicon/site.webmanifest" />
-    <meta property="og:title" content="Toca do Leão | Jiu-Jitsu em Cuiabá" />
+    <meta property="og:title" content={title} />
     <meta
       property="og:description"
-      content="Jiu-Jitsu para crianças, adultos e mulheres em Cuiabá. Agende uma aula experimental grátis e conheça a Toca do Leão."
+      content={description}
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://tocadoleao-landingpage.pages.dev/" />
+    <meta property="og:url" content={url} />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:site_name" content="Toca do Leão" />
     <meta
@@ -77,10 +90,10 @@ import { heroMobilePoster, heroDesktopPoster } from '../data/site'
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Toca do Leão Lifestyle Jiu-Jitsu" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Toca do Leão | Jiu-Jitsu em Cuiabá" />
+    <meta name="twitter:title" content={title} />
     <meta
       name="twitter:description"
-      content="Jiu-Jitsu para crianças, adultos e mulheres em Cuiabá. Agende uma aula experimental grátis e conheça a Toca do Leão."
+      content={description}
     />
     <meta
       name="twitter:image"
