@@ -863,6 +863,10 @@
   object-position: center 54%;
 }
 
+.program-card:nth-child(4) .program-media img {
+  object-position: left center;
+}
+
 .program-content {
   flex: 1;
   display: flex;
